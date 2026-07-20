@@ -1,3 +1,72 @@
+
+
+
+
+quant_drive-1.html
+File
+
+I received the HTML file quant_drive-1.html. What would you like me to do with it?
+
+For example, I can:
+
+Fix bugs or errors
+
+Add the next set of questions
+
+Improve the UI/UX
+
+Make it mobile responsive
+
+Add animations or sound effects
+
+Add timer, leaderboard, or progress tracking
+
+Convert it into a single downloadable HTML file
+
+Review and optimize the code
+
+Tell me the specific task, and I'll get straight to it.
+
+
+
+quant_drive-3.html
+File
+
+I received the second file as well: quant_drive-3.html. 
+
+
+I now have:
+
+quant_drive-1.html
+
+quant_drive-3.html
+
+What would you like me to do with them?
+
+For example:
+
+Compare the two versions and list the differences.
+
+Merge the best features into one version.
+
+Fix bugs or improve functionality.
+
+Continue adding more aptitude topics/questions.
+
+Improve the UI/UX or animations.
+
+Optimize the code and reduce file size.
+
+Just tell me the task, and I'll start immediately.
+
+
+Library
+/
+quant_drive-3.html
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -203,6 +272,49 @@
   .stamp.correct{color:var(--teal);}
   .stamp.wrong{color:var(--red);}
 
+  /* Mascot */
+  .mascot-wrap{
+    position:absolute;top:10px;left:16px;width:52px;height:52px;
+    opacity:0;pointer-events:none;
+  }
+  .mascot-wrap.show{animation:mascotIn .45s cubic-bezier(.2,1.4,.4,1) forwards;}
+  @keyframes mascotIn{
+    0%{opacity:0;transform:scale(.35) translateY(10px) rotate(0deg);}
+    60%{opacity:1;transform:scale(1.18) translateY(-4px);}
+    100%{opacity:1;transform:scale(1) translateY(0);}
+  }
+  .mascot-wrap svg{width:100%;height:100%;display:block;}
+  .mascot-wrap.happy svg{animation:happyBounce .55s ease-in-out .45s infinite alternate;}
+  @keyframes happyBounce{
+    0%{transform:translateY(0) rotate(-3deg);}
+    100%{transform:translateY(-7px) rotate(3deg);}
+  }
+  .mascot-wrap.sad svg{animation:sadShake .5s ease-in-out .45s 2;}
+  @keyframes sadShake{
+    0%,100%{transform:translateX(0) rotate(0deg);}
+    20%{transform:translateX(-4px) rotate(-5deg);}
+    40%{transform:translateX(4px) rotate(5deg);}
+    60%{transform:translateX(-3px) rotate(-4deg);}
+    80%{transform:translateX(3px) rotate(4deg);}
+  }
+  .mascot-spark{
+    position:absolute;top:10px;left:16px;width:52px;height:52px;pointer-events:none;
+  }
+  .mascot-spark span{
+    position:absolute;width:5px;height:5px;border-radius:50%;background:var(--gold);
+    opacity:0;left:26px;top:26px;
+  }
+  .mascot-wrap.happy.show ~ .mascot-spark span{animation:sparkOut .7s ease-out .1s forwards;}
+  .mascot-spark span:nth-child(1){--tx:-30px;--ty:-26px;}
+  .mascot-spark span:nth-child(2){--tx:30px;--ty:-26px;background:var(--teal);}
+  .mascot-spark span:nth-child(3){--tx:-34px;--ty:6px;background:var(--teal);}
+  .mascot-spark span:nth-child(4){--tx:34px;--ty:10px;}
+  @keyframes sparkOut{
+    0%{opacity:0;transform:translate(0,0) scale(.4);}
+    35%{opacity:1;}
+    100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(1.1);}
+  }
+
   /* Explanation panel */
   .explain{
     max-height:0;overflow:hidden;
@@ -295,7 +407,7 @@
   <div id="cardHost"></div>
 </div>
 
-<footer>Answer first — the explanation, formula, and shortcut unlock right after. Good luck with Hexaware.</footer>
+<footer>You get 3 attempts per question — a hint unlocks after a wrong try, and the full answer reveals after attempt 3. Good luck with Hexaware.</footer>
 
 <script>
 const QUESTIONS = [{"id": 1, "chapter": 1, "topic": "1. Number System", "question": "Find the remainder when 98765 is divided by 9.", "difficulty": "Easy", "companies": ["TCS", "Infosys", "Cognizant", "Capgemini", "Hexaware"], "concept": "Divisibility by 9", "formula": "Digit sum mod 9", "shortcut": "Add digits instead of dividing.", "steps": ["9+8+7+6+5=35", "3+5=8", "Remainder = 8"], "answer": "8", "mistake": "Doing long division.", "tip": "Look for divisibility shortcuts first.", "practice": "Find remainder when 45678 is divided by 9.", "options": ["10", "6", "12", "8"], "correctIndex": 3}, {"id": 2, "chapter": 1, "topic": "1. Number System", "question": "How many prime numbers are there between 50 and 100?", "difficulty": "Medium", "companies": ["Accenture", "Wipro", "Hexaware"], "concept": "Prime Numbers", "formula": "A prime has exactly two factors.", "shortcut": "Check divisibility by 2,3,5,7 only.", "steps": ["List primes:53,59,61,67,71,73,79,83,89,97", "Count them"], "answer": "10", "mistake": "Including composite numbers.", "tip": "Memorize primes up to 100.", "practice": "How many primes are between 1 and 50?", "options": ["15", "12", "10", "8"], "correctIndex": 2}, {"id": 3, "chapter": 1, "topic": "1. Number System", "question": "Find the unit digit of 7^125.", "difficulty": "Medium", "companies": ["TCS", "Infosys"], "concept": "Unit Digit", "formula": "Cycle 7,9,3,1", "shortcut": "Cycle length =4", "steps": ["125 mod 4 =1", "First term in cycle =7"], "answer": "7", "mistake": "Multiplying huge powers.", "tip": "Always use cyclicity.", "practice": "Find unit digit of 3^51.", "options": ["5", "10", "9", "7"], "correctIndex": 3}, {"id": 4, "chapter": 1, "topic": "2. Simplification (BODMAS)", "question": "18+6×4−8÷2", "difficulty": "Easy/Medium", "companies": ["Common in service-company placements"], "concept": "Core arithmetic", "formula": "Standard formula", "shortcut": "Use factorization", "steps": ["Solve using standard method."], "answer": "38", "mistake": "Skipping prime factors.", "tip": "Practice factorization.", "practice": "Create a similar question.", "options": ["28", "48", "38", "57"], "correctIndex": 2}, {"id": 5, "chapter": 1, "topic": "2. Simplification (BODMAS)", "question": "(48÷6)+(5×7)", "difficulty": "Easy/Medium", "companies": ["Common in service-company placements"], "concept": "Core arithmetic", "formula": "Standard formula", "shortcut": "Use factorization", "steps": ["Solve using standard method."], "answer": "43", "mistake": "Skipping prime factors.", "tip": "Practice factorization.", "practice": "Create a similar question.", "options": ["32", "54", "64", "43"], "correctIndex": 3}, {"id": 6, "chapter": 1, "topic": "2. Simplification (BODMAS)", "question": "36−12÷3+5×2", "difficulty": "Easy/Medium", "companies": ["Common in service-company placements"], "concept": "Core arithmetic", "formula": "Standard formula", "shortcut": "Use factorization", "steps": ["Solve using standard method."], "answer": "42", "mistake": "Skipping prime factors.", "tip": "Practice factorization.", "practice": "Create a similar question.", "options": ["32", "63", "52", "42"], "correctIndex": 3}, {"id": 7, "chapter": 1, "topic": "3. Divisibility Rules", "question": "Is 5436 divisible by 9?", "difficulty": "Easy/Medium", "companies": ["Common in service-company placements"], "concept": "Core arithmetic", "formula": "Standard formula", "shortcut": "Use factorization", "steps": ["Solve using standard method."], "answer": "Yes", "mistake": "Skipping prime factors.", "tip": "Practice factorization.", "practice": "Create a similar question.", "options": ["Yes", "Cannot be determined", "Data insufficient", "No"], "correctIndex": 0}, {"id": 8, "chapter": 1, "topic": "3. Divisibility Rules", "question": "Least number to add to 998 to make divisible by 5", "difficulty": "Easy/Medium", "companies": ["Common in service-company placements"], "concept": "Core arithmetic", "formula": "Standard formula", "shortcut": "Use factorization", "steps": ["Solve using standard method."], "answer": "2", "mistake": "Skipping prime factors.", "tip": "Practice factorization.", "practice": "Create a similar question.", "options": ["2", "-3", "3", "-1"], "correctIndex": 0}, {"id": 9, "chapter": 1, "topic": "3. Divisibility Rules", "question": "Is 2450 divisible by 10?", "difficulty": "Easy/Medium", "companies": ["Common in service-company placements"], "concept": "Core arithmetic", "formula": "Standard formula", "shortcut": "Use factorization", "steps": ["Solve using standard method."], "answer": "Yes", "mistake": "Skipping prime factors.", "tip": "Practice factorization.", "practice": "Create a similar question.", "options": ["Cannot be determined", "No", "Yes", "Data insufficient"], "correctIndex": 2}, {"id": 10, "chapter": 1, "topic": "4. HCF & LCM", "question": "HCF of 72,120,168", "difficulty": "Easy/Medium", "companies": ["Common in service-company placements"], "concept": "Core arithmetic", "formula": "Standard formula", "shortcut": "Use factorization", "steps": ["Solve using standard method."], "answer": "24", "mistake": "Skipping prime factors.", "tip": "Practice factorization.", "practice": "Create a similar question.", "options": ["30", "18", "24", "36"], "correctIndex": 2}, {"id": 11, "chapter": 1, "topic": "4. HCF & LCM", "question": "LCM of 18,24,30", "difficulty": "Easy/Medium", "companies": ["Common in service-company placements"], "concept": "Core arithmetic", "formula": "Standard formula", "shortcut": "Use factorization", "steps": ["Solve using standard method."], "answer": "360", "mistake": "Skipping prime factors.", "tip": "Practice factorization.", "practice": "Create a similar question.", "options": ["360", "270", "540", "450"], "correctIndex": 0}, {"id": 12, "chapter": 1, "topic": "4. HCF & LCM", "question": "HCF=12 LCM=720 one number=144 other?", "difficulty": "Easy/Medium", "companies": ["Common in service-company placements"], "concept": "Core arithmetic", "formula": "Standard formula", "shortcut": "Use factorization", "steps": ["Solve using standard method."], "answer": "60", "mistake": "Skipping prime factors.", "tip": "Practice factorization.", "practice": "Create a similar question.", "options": ["90", "45", "75", "60"], "correctIndex": 3}, {"id": 13, "chapter": 2, "topic": "Decimal & Fractions", "question": "Convert 0.375 into a fraction.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Decimal & Fractions", "formula": "1/2=0.5", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "3/8", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["3/9", "4/8", "8/3", "3/8"], "correctIndex": 3}, {"id": 14, "chapter": 2, "topic": "Decimal & Fractions", "question": "What is 2.5 + 3.75?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Decimal & Fractions", "formula": "1/2=0.5", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "6.25", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["6.25", "4.69", "9.38", "7.81"], "correctIndex": 0}, {"id": 15, "chapter": 2, "topic": "Decimal & Fractions", "question": "Find 3/5 of 250.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Decimal & Fractions", "formula": "1/2=0.5", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "150", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["225", "150", "188", "112"], "correctIndex": 1}, {"id": 16, "chapter": 2, "topic": "Percentage", "question": "A salary increases from ₹40,000 to ₹46,000. Find the percentage increase.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Percentage", "formula": "Percentage = (Part/Whole)×100", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "15%", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["10%", "22%", "20%", "15%"], "correctIndex": 3}, {"id": 17, "chapter": 2, "topic": "Percentage", "question": "360 out of 450 equals what percentage?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Percentage", "formula": "Percentage = (Part/Whole)×100", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "80%", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["56%", "120%", "80%", "104%"], "correctIndex": 2}, {"id": 18, "chapter": 2, "topic": "Percentage", "question": "Reduce ₹1500 by 20%.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Percentage", "formula": "Percentage = (Part/Whole)×100", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "₹1200", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["₹1800", "₹1440", "₹960", "₹1200"], "correctIndex": 3}, {"id": 19, "chapter": 2, "topic": "Ratio & Proportion", "question": "Divide ₹4200 in the ratio 3:4.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Ratio & Proportion", "formula": "a:b=x:y ⇒ a/b=x/y", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "₹1800 and ₹2400", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["₹1800 and ₹2400", "₹1440 and ₹2880", "₹2160 and ₹1920", "₹1980 and ₹2160"], "correctIndex": 0}, {"id": 20, "chapter": 2, "topic": "Ratio & Proportion", "question": "A:B=5:7 and B:C=14:15. Find A:C.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Ratio & Proportion", "formula": "a:b=x:y ⇒ a/b=x/y", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "2:3", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["2:3", "2:4", "3:2", "3:3"], "correctIndex": 0}, {"id": 21, "chapter": 2, "topic": "Ratio & Proportion", "question": "Boys:Girls=7:5. Boys=84. Girls=?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Ratio & Proportion", "formula": "a:b=x:y ⇒ a/b=x/y", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "60", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["60", "90", "75", "45"], "correctIndex": 0}, {"id": 22, "chapter": 2, "topic": "Average", "question": "Average of five numbers is 32. Find the sum.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Average", "formula": "Average = Sum / Number of items", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "160", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["120", "240", "200", "160"], "correctIndex": 3}, {"id": 23, "chapter": 2, "topic": "Average", "question": "Average of 8,12,16,20,24.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Average", "formula": "Average = Sum / Number of items", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "16", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["20", "24", "16", "12"], "correctIndex": 2}, {"id": 24, "chapter": 2, "topic": "Average", "question": "Average marks=68 for 40 students. Total marks?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Average", "formula": "Average = Sum / Number of items", "shortcut": "Simplify calculations before solving.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully."], "answer": "2720", "mistake": "Using the wrong base value or arithmetic error.", "tip": "Write the formula first to avoid mistakes.", "practice": "Create a similar question and solve it yourself.", "options": ["3400", "2720", "2040", "4080"], "correctIndex": 1}, {"id": 25, "chapter": 3, "topic": "Ages", "question": "A father is 36 years older than his son. If the son\\'s age is 12, find the father\\'s age.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Ages", "formula": "Present Age ± Years", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "48", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["36", "72", "48", "60"], "correctIndex": 2}, {"id": 26, "chapter": 3, "topic": "Ages", "question": "Five years ago, A was 20. What is A\\'s present age?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Ages", "formula": "Present Age ± Years", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "25", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["38", "31", "19", "25"], "correctIndex": 3}, {"id": 27, "chapter": 3, "topic": "Ages", "question": "The ratio of ages of A and B is 3:5. If B is 25, find A\\'s age.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Ages", "formula": "Present Age ± Years", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "15", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["11", "22", "15", "19"], "correctIndex": 2}, {"id": 28, "chapter": 3, "topic": "Profit & Loss", "question": "CP=₹800, SP=₹920. Profit %?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Profit & Loss", "formula": "Profit = SP − CP", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "15%", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["22%", "10%", "15%", "20%"], "correctIndex": 2}, {"id": 29, "chapter": 3, "topic": "Profit & Loss", "question": "SP=₹1700 at 15% loss. Find CP.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Profit & Loss", "formula": "Profit = SP − CP", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "₹2000", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["₹2000", "₹1600", "₹2400", "₹3000"], "correctIndex": 0}, {"id": 30, "chapter": 3, "topic": "Profit & Loss", "question": "CP=₹500, SP=₹450. Loss %?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Profit & Loss", "formula": "Profit = SP − CP", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "10%", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["13%", "10%", "15%", "7%"], "correctIndex": 1}, {"id": 31, "chapter": 3, "topic": "Discount", "question": "MP=₹2000, Discount=10%. SP?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Discount", "formula": "Discount = MP − SP", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "₹1800", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["₹1800", "₹2700", "₹2160", "₹1440"], "correctIndex": 0}, {"id": 32, "chapter": 3, "topic": "Discount", "question": "MP=₹1500, SP=₹1200. Discount %?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Discount", "formula": "Discount = MP − SP", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "20%", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["20%", "14%", "26%", "30%"], "correctIndex": 0}, {"id": 33, "chapter": 3, "topic": "Discount", "question": "MP=₹800, Discount=₹120. SP?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Discount", "formula": "Discount = MP − SP", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "₹680", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["₹544", "₹1020", "₹680", "₹816"], "correctIndex": 2}, {"id": 34, "chapter": 3, "topic": "Simple Interest", "question": "P=₹5000, R=8%, T=2 years. SI?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Simple Interest", "formula": "SI = (P×R×T)/100", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "₹800", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["₹640", "₹960", "₹800", "₹1200"], "correctIndex": 2}, {"id": 35, "chapter": 3, "topic": "Simple Interest", "question": "P=₹12000, R=5%, T=3 years. SI?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Simple Interest", "formula": "SI = (P×R×T)/100", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "₹1800", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["₹1440", "₹2160", "₹2700", "₹1800"], "correctIndex": 3}, {"id": 36, "chapter": 3, "topic": "Simple Interest", "question": "Amount=₹5500, P=₹5000. Find SI.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Simple Interest", "formula": "SI = (P×R×T)/100", "shortcut": "Substitute values directly into the formula.", "steps": ["Identify the given values.", "Apply the formula.", "Calculate carefully and verify the result."], "answer": "₹500", "mistake": "Using the wrong base value or formula.", "tip": "Keep calculations neat to avoid arithmetic mistakes.", "practice": "Create one similar problem and solve it.", "options": ["₹400", "₹500", "₹600", "₹750"], "correctIndex": 1}, {"id": 37, "chapter": 4, "topic": "Compound Interest", "question": "P=₹10000, R=10%, T=2 years. Find CI.", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Compound Interest", "formula": "Amount = P(1 + R/100)^T", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "₹2100", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["₹2100", "₹2520", "₹1680", "₹3150"], "correctIndex": 0}, {"id": 38, "chapter": 4, "topic": "Compound Interest", "question": "P=₹5000, R=8%, T=1 year. Amount?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Compound Interest", "formula": "Amount = P(1 + R/100)^T", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "₹5400", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["₹4320", "₹5400", "₹8100", "₹6480"], "correctIndex": 1}, {"id": 39, "chapter": 4, "topic": "Compound Interest", "question": "P=₹20000, R=5%, T=2 years. Amount?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Compound Interest", "formula": "Amount = P(1 + R/100)^T", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "₹22050", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["₹33075", "₹17640", "₹26460", "₹22050"], "correctIndex": 3}, {"id": 40, "chapter": 4, "topic": "Partnership", "question": "A invests ₹50,000 and B ₹30,000. Profit ₹16,000. A\\'s share?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Partnership", "formula": "Share ∝ Capital × Time", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "₹10,000", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["₹15,000", "₹8,000", "₹10,000", "₹12,000"], "correctIndex": 2}, {"id": 41, "chapter": 4, "topic": "Partnership", "question": "A:B investment = 2:3. Profit ₹25,000. B\\'s share?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Partnership", "formula": "Share ∝ Capital × Time", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "₹15,000", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["₹18,000", "₹12,000", "₹15,000", "₹22,500"], "correctIndex": 2}, {"id": 42, "chapter": 4, "topic": "Partnership", "question": "A invests ₹40,000 for 12 months, B ₹60,000 for 6 months. Ratio?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Partnership", "formula": "Share ∝ Capital × Time", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "4:3", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["4:4", "5:3", "3:4", "4:3"], "correctIndex": 3}, {"id": 43, "chapter": 4, "topic": "Mixture & Alligation", "question": "Mix 10 L milk with 5 L water. Milk percentage?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Mixture & Alligation", "formula": "Alligation Rule", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "66.67%", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["100.00%", "66.67%", "86.67%", "46.67%"], "correctIndex": 1}, {"id": 44, "chapter": 4, "topic": "Mixture & Alligation", "question": "Rice ₹40/kg mixed with ₹60/kg equally. Mean price?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Mixture & Alligation", "formula": "Alligation Rule", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "₹50/kg", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["₹40/kg", "₹50/kg", "₹70/kg", "₹60/kg"], "correctIndex": 1}, {"id": 45, "chapter": 4, "topic": "Mixture & Alligation", "question": "Sugar solution: 20% and 40% mixed equally. Concentration?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Mixture & Alligation", "formula": "Alligation Rule", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "30%", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["39%", "30%", "45%", "21%"], "correctIndex": 1}, {"id": 46, "chapter": 4, "topic": "Time & Work", "question": "A finishes a job in 12 days, B in 18 days. Together?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Time & Work", "formula": "Work = Rate × Time", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "7.2 days", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["10.8 days", "5.0 days", "9.4 days", "7.2 days"], "correctIndex": 3}, {"id": 47, "chapter": 4, "topic": "Time & Work", "question": "A alone completes a job in 20 days. Work in 5 days?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Time & Work", "formula": "Work = Rate × Time", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "1/4", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["1/5", "4/1", "1/4", "2/4"], "correctIndex": 2}, {"id": 48, "chapter": 4, "topic": "Time & Work", "question": "A,B,C complete a job in 10,15,30 days. Together?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Time & Work", "formula": "Work = Rate × Time", "shortcut": "Apply the formula directly after identifying the given values.", "steps": ["Identify the given values.", "Substitute into the formula.", "Simplify and verify the answer."], "answer": "5 days", "mistake": "Choosing the wrong formula or calculation error.", "tip": "Practice mental calculations to improve speed.", "practice": "Solve one more similar question on your own.", "options": ["8 days", "5 days", "4 days", "6 days"], "correctIndex": 1}, {"id": 49, "chapter": 5, "topic": "Pipes & Cisterns", "question": "Pipe A fills a tank in 6 hours. Pipe B in 3 hours. Together?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Pipes & Cisterns", "formula": "Rate = 1/Time", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "2 hours", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["2 hours", "3 hours", "1.5 hours", "4 hours"], "correctIndex": 0}, {"id": 50, "chapter": 5, "topic": "Pipes & Cisterns", "question": "A fills in 8 hours, B empties in 24 hours. Together?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Pipes & Cisterns", "formula": "Net Rate = Fill Rates − Empty Rate", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "12 hours", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["12 hours", "10 hours", "16 hours", "6 hours"], "correctIndex": 0}, {"id": 51, "chapter": 5, "topic": "Pipes & Cisterns", "question": "A tank fills in 10 hours. What fraction fills in 2 hours?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Pipes & Cisterns", "formula": "Rate = 1/Time", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "1/5", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["1/5", "1/10", "2/5", "1/4"], "correctIndex": 0}, {"id": 52, "chapter": 5, "topic": "Time, Speed & Distance", "question": "A car travels 180 km in 3 hours. Speed?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Time, Speed & Distance", "formula": "Distance = Speed × Time", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "60 km/h", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["60 km/h", "45 km/h", "90 km/h", "75 km/h"], "correctIndex": 0}, {"id": 53, "chapter": 5, "topic": "Time, Speed & Distance", "question": "A person walks at 5 km/h for 2.5 hours. Distance?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Time, Speed & Distance", "formula": "Distance = Speed × Time", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "12.5 km", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["12.5 km", "10 km", "15 km", "7.5 km"], "correctIndex": 0}, {"id": 54, "chapter": 5, "topic": "Time, Speed & Distance", "question": "A bike covers 150 km at 50 km/h. Time?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Time, Speed & Distance", "formula": "Distance = Speed × Time", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "3 hours", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["3 hours", "2.5 hours", "4 hours", "3.5 hours"], "correctIndex": 0}, {"id": 55, "chapter": 5, "topic": "Trains", "question": "A 200 m train at 72 km/h crosses a pole. Time?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Trains", "formula": "1 km/h = 5/18 m/s", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "10 s", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["10 s", "8 s", "12 s", "15 s"], "correctIndex": 0}, {"id": 56, "chapter": 5, "topic": "Trains", "question": "A 400 m train at 72 km/h crosses a 200 m platform. Time?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Trains", "formula": "1 km/h = 5/18 m/s", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "30 s", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["30 s", "20 s", "25 s", "35 s"], "correctIndex": 0}, {"id": 57, "chapter": 5, "topic": "Trains", "question": "Two trains at 54 and 36 km/h move opposite. Relative speed?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Trains", "formula": "1 km/h = 5/18 m/s", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "90 km/h", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["90 km/h", "18 km/h", "72 km/h", "108 km/h"], "correctIndex": 0}, {"id": 58, "chapter": 5, "topic": "Boats & Streams", "question": "Boat speed 12 km/h, stream 3 km/h. Downstream?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Boats & Streams", "formula": "Downstream = B+S", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "15 km/h", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["15 km/h", "9 km/h", "12 km/h", "18 km/h"], "correctIndex": 0}, {"id": 59, "chapter": 5, "topic": "Boats & Streams", "question": "Boat speed 12 km/h, stream 3 km/h. Upstream?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Boats & Streams", "formula": "Upstream = B−S", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "9 km/h", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["9 km/h", "15 km/h", "12 km/h", "6 km/h"], "correctIndex": 0}, {"id": 60, "chapter": 5, "topic": "Boats & Streams", "question": "Downstream=15 km/h and upstream=9 km/h. Boat speed?", "difficulty": "Easy/Medium", "companies": ["TCS", "Infosys", "Accenture", "Cognizant", "Capgemini", "Wipro", "Hexaware"], "concept": "Boats & Streams", "formula": "Downstream = B+S", "shortcut": "Identify the correct formula before calculation.", "steps": ["Write the given values.", "Apply the formula.", "Simplify to obtain the answer."], "answer": "12 km/h", "mistake": "Forgetting unit conversions or using the wrong rate.", "tip": "Practice mental conversions like km/h ↔ m/s.", "practice": "Solve another similar problem.", "options": ["12 km/h", "3 km/h", "15 km/h", "9 km/h"], "correctIndex": 0}]
@@ -348,7 +460,7 @@ function renderRail(){
   rail.innerHTML = '';
   topics.forEach(key=>{
     const qs = byTopic[key];
-    const answeredCount = qs.filter(q=>answered[q.id]).length;
+    const answeredCount = qs.filter(q=>answered[q.id] && answered[q.id].finished).length;
     const chip = document.createElement('div');
     chip.className = 'rail-chip' + (key===currentTopicKey?' active':'') + (answeredCount===qs.length?' done':'');
     chip.innerHTML = `${topicLabel(key)} <span class="n">${answeredCount}/${qs.length}</span>`;
@@ -365,7 +477,7 @@ function renderDots(){
     const d = document.createElement('div');
     let cls = 'pdot';
     if(i===currentIndex) cls += ' current';
-    else if(answered[q.id]) cls += answered[q.id].correct ? ' answered-correct' : ' answered-wrong';
+    else if(answered[q.id] && answered[q.id].finished) cls += answered[q.id].correct ? ' answered-correct' : ' answered-wrong';
     d.className = cls;
     row.appendChild(d);
   });
@@ -385,34 +497,106 @@ function diffClass(diff){
   return 'tag-diff-easy';
 }
 
+const MAX_ATTEMPTS = 3;
+
+const HAPPY_BOY_SVG = `
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 40 Q7 30 9 15" stroke="#f0bd8f" stroke-width="6" stroke-linecap="round"/>
+  <path d="M44 40 Q57 30 55 15" stroke="#f0bd8f" stroke-width="6" stroke-linecap="round"/>
+  <rect x="19" y="35" width="26" height="23" rx="9" fill="#2dd4bf"/>
+  <circle cx="32" cy="23" r="14" fill="#f0bd8f"/>
+  <path d="M18 17 Q32 2 46 17 Q46 8 32 6 Q18 8 18 17Z" fill="#3a2a1a"/>
+  <circle cx="27" cy="22" r="2" fill="#1a1a1a"/>
+  <circle cx="37" cy="22" r="2" fill="#1a1a1a"/>
+  <path d="M24 27 Q32 36 40 27" stroke="#1a1a1a" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+</svg>`;
+
+const SAD_BOY_SVG = `
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 41 Q9 46 7 57" stroke="#f0bd8f" stroke-width="6" stroke-linecap="round"/>
+  <path d="M44 41 Q55 45 42 51" stroke="#f0bd8f" stroke-width="6" stroke-linecap="round"/>
+  <rect x="19" y="36" width="26" height="22" rx="9" fill="#f87171"/>
+  <g transform="rotate(-7 32 24)">
+    <circle cx="32" cy="24" r="14" fill="#f0bd8f"/>
+    <path d="M18 18 Q32 3 46 18 Q46 9 32 7 Q18 9 18 18Z" fill="#3a2a1a"/>
+    <path d="M23 20 L29 22" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+    <path d="M41 20 L35 22" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="27" cy="25" r="2" fill="#1a1a1a"/>
+    <circle cx="37" cy="25" r="2" fill="#1a1a1a"/>
+    <path d="M25 33 Q32 28 39 33" stroke="#1a1a1a" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>`;
+
+function mascotHtml(finished, attemptsUsed, correct){
+  if(!finished && attemptsUsed === 0) return '';
+  const isHappy = finished && correct;
+  const cls = isHappy ? 'happy' : 'sad';
+  const svg = isHappy ? HAPPY_BOY_SVG : SAD_BOY_SVG;
+  const sparks = isHappy ? `<div class="mascot-spark"><span></span><span></span><span></span><span></span></div>` : '';
+  return `<div class="mascot-wrap show ${cls}">${svg}</div>${sparks}`;
+}
+
 function renderCard(){
   const qs = byTopic[currentTopicKey];
   const q = qs[currentIndex];
-  const state = answered[q.id];
+  const state = answered[q.id]; // {attempts:[idx,...], correct, finished, hintShown}
   const host = document.getElementById('cardHost');
 
   const companiesHtml = q.companies.map(c=>`<span class="co-chip">${c}</span>`).join('');
+  const attemptsUsed = state ? state.attempts.length : 0;
+  const finished = state ? state.finished : false;
+  const attemptsLeft = MAX_ATTEMPTS - attemptsUsed;
 
   let optionsHtml = '';
   q.options.forEach((opt, i)=>{
     let cls = 'opt';
-    if(state){
+    let disabled = false;
+    if(finished){
+      disabled = true;
       if(i === q.correctIndex) cls += ' correct-reveal';
-      else if(i === state.selectedIdx) cls += ' wrong-reveal';
+      else if(state.attempts.includes(i)) cls += ' wrong-reveal';
       else cls += ' dim';
+    } else if(state && state.attempts.includes(i)){
+      disabled = true;
+      cls += ' wrong-reveal';
     }
-    optionsHtml += `<button class="${cls}" data-idx="${i}" ${state?'disabled':''}>
+    optionsHtml += `<button class="${cls}" data-idx="${i}" ${disabled?'disabled':''}>
       <span class="letter">${letters[i]}</span><span>${opt}</span>
     </button>`;
   });
 
   let stampHtml = '';
-  if(state){
-    stampHtml = `<div class="stamp show ${state.correct?'correct':'wrong'}">${state.correct?'Correct':'Try Again'}</div>`;
+  if(finished){
+    stampHtml = `<div class="stamp show ${state.correct?'correct':'wrong'}">${state.correct?'Correct':'Answer Revealed'}</div>`;
+  } else if(attemptsUsed > 0){
+    stampHtml = `<div class="stamp show wrong">Try Again — ${attemptsLeft} attempt${attemptsLeft===1?'':'s'} left</div>`;
+  }
+
+  const mascotMarkup = mascotHtml(finished, attemptsUsed, finished ? state.correct : false);
+
+  let hintButtonHtml = '';
+  if(!finished && attemptsUsed > 0){
+    hintButtonHtml = `<button class="btn btn-ghost" id="hintBtn" style="border:1px solid var(--line);color:var(--text-dim);margin-bottom:14px;">
+      ${state.hintShown ? 'Hide hint' : 'Show hint (formula + shortcut)'}
+    </button>`;
+  }
+
+  let hintHtml = '';
+  if(!finished && state && state.hintShown){
+    hintHtml = `
+      <div class="explain open">
+        <div class="explain-inner">
+          <div class="badgegrid">
+            <div class="eblock"><h4>Formula used</h4><p>${q.formula||'—'}</p></div>
+            <div class="eblock"><h4>Shortcut</h4><p>${q.shortcut||'—'}</p></div>
+          </div>
+          <div class="tip-box"><h4>Interview tip</h4><p>${q.tip||'—'}</p></div>
+        </div>
+      </div>`;
   }
 
   let explainHtml = '';
-  if(state){
+  if(finished){
     const stepsHtml = q.steps.length ? `<div class="eblock"><h4>Step-by-step</h4><ol>${q.steps.map(s=>`<li>${s}</li>`).join('')}</ol></div>` : '';
     explainHtml = `
       <div class="explain open">
@@ -437,6 +621,7 @@ function renderCard(){
   host.innerHTML = `
     <div class="ticket">
       ${stampHtml}
+      ${mascotMarkup}
       <div class="ticket-top">
         <div class="qmeta">
           <span class="tag tag-topic">${topicLabel(currentTopicKey)}</span>
@@ -447,10 +632,12 @@ function renderCard(){
       <div class="companies">${companiesHtml}</div>
       <p class="qtext">${q.question}</p>
       <div class="options">${optionsHtml}</div>
+      ${hintButtonHtml}
+      ${hintHtml}
       ${explainHtml}
       <div class="nav-row">
-        <button class="btn btn-ghost" id="skipBtn" ${state?'style="visibility:hidden"':''}>Skip for now</button>
-        <button class="btn primary" id="nextBtn" ${state?'':'disabled'}>
+        <button class="btn btn-ghost" id="skipBtn" ${finished?'style="visibility:hidden"':''}>Skip for now</button>
+        <button class="btn primary" id="nextBtn" ${finished?'':'disabled'}>
           ${isLastInTopic ? (lastTopic ? 'Finish' : 'Next topic →') : 'Next question →'}
         </button>
       </div>
@@ -459,17 +646,42 @@ function renderCard(){
 
   host.querySelectorAll('.opt').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      if(answered[q.id]) return;
+      const cur = answered[q.id];
+      if(cur && cur.finished) return;
       const idx = parseInt(btn.dataset.idx,10);
       const correct = idx === q.correctIndex;
-      answered[q.id] = {selectedIdx: idx, correct};
-      totalAnswered++;
-      if(correct) totalCorrect++;
+
+      if(!answered[q.id]){
+        answered[q.id] = {attempts:[], correct:false, finished:false, hintShown:false};
+      }
+      const st = answered[q.id];
+
+      if(correct){
+        st.correct = true;
+        st.finished = true;
+        totalAnswered++;
+        totalCorrect++;
+      } else {
+        st.attempts.push(idx);
+        if(st.attempts.length >= MAX_ATTEMPTS){
+          st.correct = false;
+          st.finished = true;
+          totalAnswered++;
+        }
+      }
       updateScore();
       saveProgress();
       renderAll();
     });
   });
+
+  const hintBtn = document.getElementById('hintBtn');
+  if(hintBtn){
+    hintBtn.addEventListener('click', ()=>{
+      const st = answered[q.id];
+      if(st){ st.hintShown = !st.hintShown; saveProgress(); renderAll(); }
+    });
+  }
 
   const nextBtn = document.getElementById('nextBtn');
   if(nextBtn){
